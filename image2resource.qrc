@@ -1,0 +1,9 @@
+<RCC>
+    <qresource>
+        <file>Icons/Im2_ImagePlane.svg</file>
+        <file>Icons/Im2_importImage.svg</file>
+        <file>Icons/Im2_50Trans.svg</file>
+        <file>Icons/Im2_Scale.svg</file>
+        <file>Icons/Im2_Origo.svg</file>
+    </qresource>
+</RCC>
