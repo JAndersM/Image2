@@ -34,7 +34,7 @@ class ImagePlaneCommand:
     def Activated(self):
         sel=FreeCADGui.Selection.getSelection()
         try :
-            imfile=sel[0].ImageFile
+            imfile=sel[0].ImageFile #Do we have an image file
             import ImagePlane
             ImagePlane.makeImagePlane(sel[0].Proxy)
         except IndexError, AttributeError:

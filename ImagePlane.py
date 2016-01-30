@@ -1,4 +1,4 @@
-import FreeCAD, FreeCADGui
+import FreeCAD, FreeCADGui, Draft, Part
 from pivy import coin
 
 class ImagePlane:
@@ -13,20 +13,28 @@ class ImagePlane:
         FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
  
     def execute(self, fp):
-        "'''Do something when doing a recomputation, this method is mandatory'''"
-        FreeCAD.Console.PrintMessage("Recompute\n")
+        sx=fp.xScale
+        sy=fp.yScale
+        width = sx*self.image.width
+        height = sy*self.image.height
+        v1 = FreeCAD.Vector(-width/2,-height/2,0)
+        v2 = FreeCAD.Vector(width/2,-height/2,0)
+        v3 = FreeCAD.Vector(width/2,height/2,0)
+        v4 = FreeCAD.Vector(-width/2,height/2,0)
+        wire = Part.makePolygon([v1,v2,v3,v4,v1])
+        face = Part.Face(wire)
+        fp.Shape = face
+
  
 class ViewProviderImagePlane:
     def __init__(self, obj, image2):
-        obj.addProperty("App::PropertyColor","Color","ImagePlane","Color of the plane").Color=(1.0,1.0,1.0)
-        obj.addProperty("App::PropertyFloat","Transparency","ImagePlane","Transparency in %").Transparency=0.0
+        obj.ShapeColor=(1.0,1.0,1.0)
         self.image=image2
         self.width=self.image.width
         self.height=self.image.height
         obj.Proxy = self
  
     def attach(self, obj):
-        "'''Setup the scene sub-graph of the view provider, this method is mandatory'''"
         self.shaded = coin.SoGroup()
         self.wireframe = coin.SoGroup()
         self.scale = coin.SoScale()
@@ -34,6 +42,7 @@ class ViewProviderImagePlane:
         self.color = coin.SoBaseColor()
         self.material.transparency.setValue(obj.Transparency/100)
         self.material.emissiveColor.setValue(coin.SbColor(1,1,1))
+        obj.Selectable=False
         
         ipVertexes = coin.SoVertexProperty()
 
@@ -99,12 +108,8 @@ class ViewProviderImagePlane:
         return mode
  
     def onChanged(self, vp, prop):
-        "'''Here we can do something when a single property got changed'''"
         FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
-        if prop == "Color":
-            c = vp.getPropertyByName("Color")
-            self.color.rgb.setValue(c[0],c[1],c[2])
-        elif prop=="Transparency" :
+        if prop=="Transparency" :
             t = vp.getPropertyByName("Transparency")
             t=min(max(t,0),100)
             self.material.transparency.setValue(t/100)
@@ -146,6 +151,11 @@ class ViewProviderImagePlane:
  
  
 def makeImagePlane(im2=None):
-    a=FreeCAD.ActiveDocument.addObject("App::FeaturePython","ImagePlane")
+    a=FreeCAD.ActiveDocument.addObject("Part::Part2DObjectPython","ImagePlane")
     ImagePlane(a, im2)
     ViewProviderImagePlane(a.ViewObject, im2)
+    pl = FreeCAD.Placement()
+    pl.Rotation = FreeCADGui.ActiveDocument.ActiveView.getCameraOrientation()
+    pl.Base = FreeCAD.Vector(0.0,0.0,0.0)
+    a.Placement=pl
+    FreeCAD.ActiveDocument.recompute()
