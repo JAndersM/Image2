@@ -26,7 +26,13 @@ class Image2:
     def execute(self, fp):
         "'''Do something when doing a recomputation, this method is mandatory'''"
         FreeCAD.Console.PrintMessage("Recompute\n")
-        
+
+    def __getstate__(self):
+        return None
+ 
+    def __setstate__(self,state):
+        return None
+                
 class ViewProviderImage2:
     def __init__(self, obj):
         "'''Set this object to the proxy object of the actual view provider'''"

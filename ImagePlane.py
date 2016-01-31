@@ -25,6 +25,12 @@ class ImagePlane:
         face = Part.Face(wire)
         fp.Shape = face
 
+    def __getstate__(self):
+        return None
+ 
+    def __setstate__(self,state):
+        return None
+        
  
 class ViewProviderImagePlane:
     def __init__(self, obj, image2):
