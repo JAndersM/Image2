@@ -76,8 +76,8 @@ class PlaneOrigoCommand:
             return True
  
     def Activated(self):
-        import Origo
-        Origo.setOrigo()
+        import MoveImagePlane
+        MoveImagePlane.setOrigo()
 
 FreeCADGui.addCommand('ImportImage',ImportImageCommand())
 FreeCADGui.addCommand('CreateImagePlane',ImagePlaneCommand())
