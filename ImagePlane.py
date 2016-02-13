@@ -9,8 +9,12 @@ class ImagePlane:
         obj.Proxy = self
    
     def onChanged(self, fp, prop):
-        "'''Do something when a property has changed'''"
-        FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
+        if prop=="xScale" or prop=="yScale":
+            sx=fp.xScale
+            sy=fp.yScale
+            width = sx*self.image.width
+            height = sy*self.image.height
+        #FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
  
     def execute(self, fp):
         sx=fp.xScale
