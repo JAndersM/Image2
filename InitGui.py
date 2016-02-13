@@ -12,8 +12,8 @@ class Image2Workbench ( Workbench ):
     def Initialize(self):
         import Commands
         self.appendToolbar("Image2 Tools", ["ImportImage"])
-        self.appendToolbar("Image2Plane Tools", ["CreateImagePlane", "MoveOrigo", "ToggleTransparency"])
-        self.appendMenu("Image2 Tools", ["ImportImage", "CreateImagePlane", "MoveOrigo", "ToggleTransparency"])
+        self.appendToolbar("Image2Plane Tools", ["CreateImagePlane", "MoveOrigo", "MovePoint", "ScalePlane", "ToggleTransparency"])
+        self.appendMenu("Image2 Tools", ["ImportImage", "CreateImagePlane", "MoveOrigo", "MovePoint", "ScalePlane", "ToggleTransparency"])
         Log ("Loading Image2... done\n")
 
     def Activated(self):

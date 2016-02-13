@@ -5,5 +5,6 @@
         <file>Icons/Im2_50Trans.svg</file>
         <file>Icons/Im2_Scale.svg</file>
         <file>Icons/Im2_Origo.svg</file>
+        <file>Icons/Im2_Point.svg</file>
     </qresource>
 </RCC>

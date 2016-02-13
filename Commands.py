@@ -1,4 +1,5 @@
 import FreeCAD,FreeCADGui
+from PySide import QtCore, QtGui
  
 class ImportImageCommand:
     "Import image from file"
@@ -38,6 +39,9 @@ class ImagePlaneCommand:
             import ImagePlane
             ImagePlane.makeImagePlane(sel[0].Proxy)
         except IndexError, AttributeError:
+            diag = QtGui.QMessageBox(QtGui.QMessageBox.Warning, 'Can not create image plane', "Select an image first.")
+            diag.setWindowModality(QtCore.Qt.ApplicationModal)
+            diag.exec_()
             return
         
 class PlaneTransCommand:
@@ -79,8 +83,45 @@ class PlaneOrigoCommand:
         import MoveImagePlane
         MoveImagePlane.setOrigo()
 
+class PlanePointCommand:
+    "Moves selected point to point on object"
+    def GetResources(self):
+        return {"MenuText": "Move plane to new point",
+                "Accel": "Ctrl+M",
+                "ToolTip": "Moves image plane to point on other object",
+                "Pixmap"  : ":/Icons/Im2_Point.svg"}
+ 
+    def IsActive(self):
+        if FreeCAD.ActiveDocument == None:
+            return False
+        else:
+            return True
+ 
+    def Activated(self):
+        import MoveImagePlane
+        MoveImagePlane.setPoint()
+
+class ScalePlaneCommand:
+    "Scales selected image plane"
+    def GetResources(self):
+        return {"MenuText": "Scale plane",
+                "Accel": "Ctrl+M",
+                "ToolTip": "Scales selected image plane",
+                "Pixmap"  : ":/Icons/Im2_Scale.svg"}
+ 
+    def IsActive(self):
+        if FreeCAD.ActiveDocument == None:
+            return False
+        else:
+            return True
+ 
+    def Activated(self):
+        import ScaleImagePlane
+        ScaleImagePlane.setScale()
+               
 FreeCADGui.addCommand('ImportImage',ImportImageCommand())
 FreeCADGui.addCommand('CreateImagePlane',ImagePlaneCommand())
 FreeCADGui.addCommand('ToggleTransparency',PlaneTransCommand())
 FreeCADGui.addCommand('MoveOrigo',PlaneOrigoCommand())
-
+FreeCADGui.addCommand('MovePoint',PlanePointCommand())
+FreeCADGui.addCommand('ScalePlane',ScalePlaneCommand())

@@ -62,10 +62,10 @@ class ViewProviderImagePlane:
         ipVertexes.normal.set1Value(0, coin.SbVec3f(0, 0, 1))
 
         # Define the square's texture coordinates
-        ipVertexes.texCoord.set1Value(0, coin.SbVec2f(0, 0))
-        ipVertexes.texCoord.set1Value(1, coin.SbVec2f(1, 0))
-        ipVertexes.texCoord.set1Value(2, coin.SbVec2f(1, 1))
-        ipVertexes.texCoord.set1Value(3, coin.SbVec2f(0, 1))
+        ipVertexes.texCoord.set1Value(0, coin.SbVec2f(0, 1))
+        ipVertexes.texCoord.set1Value(1, coin.SbVec2f(1, 1))
+        ipVertexes.texCoord.set1Value(2, coin.SbVec2f(1, 0))
+        ipVertexes.texCoord.set1Value(3, coin.SbVec2f(0, 0))
 
         # Define a FaceSet
         ipFaceSet = coin.SoFaceSet()
@@ -165,3 +165,5 @@ def makeImagePlane(im2=None):
     pl.Base = FreeCAD.Vector(0.0,0.0,0.0)
     a.Placement=pl
     FreeCAD.ActiveDocument.recompute()
+    
+
