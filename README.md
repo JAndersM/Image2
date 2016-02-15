@@ -11,7 +11,9 @@ Feature ideas:
 
 *Rotate image to face normal
 
-Issues
+
+Issues:
+
 *Draw line when scaling
 
 *Feature for Image plane
