@@ -89,7 +89,7 @@ class ViewProviderImagePlane:
         self.wireframe.addChild(self.color)
         self.wireframe.addChild(ipFaceSet)
         obj.addDisplayMode(self.wireframe,"Wireframe");
-        self.onChanged(obj,"Color")
+        self.onChanged(obj,"Transparency")
         if self.image is not None:
             rootnode = obj.RootNode
             tex=self.image.getTexture()
@@ -118,7 +118,7 @@ class ViewProviderImagePlane:
         return mode
  
     def onChanged(self, vp, prop):
-        FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
+        #FreeCAD.Console.PrintMessage("Change property: " + str(prop) + "\n")
         if prop=="Transparency" :
             t = vp.getPropertyByName("Transparency")
             t=min(max(t,0),100)
