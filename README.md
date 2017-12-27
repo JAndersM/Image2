@@ -1,21 +1,36 @@
 # Image2
 Image Workbench for FreeCAD
 
+Features:
+
+* Loading images for use as reference in FreeCAD
+
+* Creating image planes
+
+* Scaling image planes to fit object dimensions
+
+* Positioning and rotating image planes
+
+* Setting transparency of the planes
+
+
 Feature ideas:
 
-*Image viewer
+* Image viewer
 
-*Image plane from rectangular part of image
+* Create image plane from rectangular part of image rather than the whole image
 
-*Scaling image to fit object
+* Scaling image to fit object
 
-*Rotate image to face normal
+* Rotate image to face normal
 
 
 Issues:
 
-*Draw line when scaling
+* Change from Part2DObjectPython to a object directly from DocumentObject
 
-*Feature for Image plane
+* Translation
 
-*Texture coordinates image plane
+* Drawing line when scaling not working as it should
+
+* Texture coordinates on image plane
